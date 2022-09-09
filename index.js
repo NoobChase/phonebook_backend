@@ -36,6 +36,7 @@ const url = `mongodb+srv://chase:${password}@cluster0.9bzkg6w.mongodb.net/?retry
 const today = new Date()
 app.get('/', (request,response)=>{
     response.send('<h1>Hello World!</h1>')
+    console.log(process.env.MONGODB_URL)
 })
 app.get('/api/persons',(request,response) => {
   Person.find({}).then(persons => {
