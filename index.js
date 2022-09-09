@@ -76,6 +76,21 @@ const tempPerson = new Person({
     response.json(savedPerson)
   })
 }
+})
+app.delete('/api/persons/:id',(request,response) => {
+  Person.findById(request.params.id)
+  console.log(request.params)
+  .then(person=>{
+    if(person){
+      response.json(person)
+    }
+    else{
+      response.status(404).end()
+    }
+  })
+  persons = persons.filter(person => person.id !== id)
+  response.status(204).end()
+})
     /*const person = request.body
     const isFound = persons.some(element => {
       if(element.name === person.name){
@@ -104,7 +119,8 @@ const tempPerson = new Person({
       console.log(person)
       response.json(person)
     }*/
-})
+
+/*
 app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     const person = persons.find(person => person.id===id)
@@ -123,7 +139,7 @@ app.delete('/api/persons/:id',(request,response) => {
 app.get('/info',(request, response) => {
     response.send('<p>Phonebook has info for '+ (persons.length) +' people</p><p>'+today+'</p>')
 })
-
+*/
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
