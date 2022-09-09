@@ -77,19 +77,12 @@ const tempPerson = new Person({
   })
 }
 })
-app.delete('/api/persons/:id',(request,response) => {
-  Person.findById(request.params.id)
-  console.log(request.params)
-  .then(person=>{
-    if(person){
-      response.json(person)
-    }
-    else{
-      response.status(404).end()
-    }
+app.delete('/api/persons/:id',(request,response, next) => {
+  Person.findByIdAndRemove(request.params.id)
+  .then(result=>{
+    response.status(204).end()
   })
-  persons = persons.filter(person => person.id !== id)
-  response.status(204).end()
+  .catch(error =>next(error))
 })
     /*const person = request.body
     const isFound = persons.some(element => {
