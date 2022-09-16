@@ -75,6 +75,29 @@ app.get('/info',(request, response) => {
 })
   
 })
+
+app.post('/api/persons',(request,response)=>{
+  const body = request.body
+  console.log(body)
+  if (!body.name) {
+    return response.status(400).json({ 
+      error: 'name missing' 
+    })
+  }
+  else if (!body.number) {
+    return response.status(400).json({ 
+      error: 'number missing' 
+    })
+  }
+  const person = new Person({
+    name: body.name,
+    number: body.number
+  })
+  person.save().then(savedPerson =>{
+    response.json(savedPerson)
+  })
+})
+/*
 app.post('/api/persons',(request, response) => {
   const person = request.body
   const isFound = persons.some(element => {
@@ -114,7 +137,7 @@ const tempPerson = new Person({
     response.json(savedPerson)
   })
 }
-})
+})*/
 app.delete('/api/persons/:id',(request,response, next) => {
   Person.findByIdAndRemove(request.params.id)
   .then(result=>{
