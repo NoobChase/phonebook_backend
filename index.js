@@ -68,6 +68,13 @@ app.get('/api/persons/:id', (request, response,next) => {
     })
     .catch(error => next(error))
 })
+app.get('/info',(request, response) => {
+  Person.count({}, function( err, count){
+    response.send('<p>Phonebook has info for '+ (count) +' people</p><p>'+today+'</p>')
+    console.log( "Number of users:", count );
+})
+  
+})
 app.post('/api/persons',(request, response) => {
   const person = request.body
   const isFound = persons.some(element => {
